@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/SpectrumIM/spectrum2.svg?branch=master)](https://travis-ci.org/SpectrumIM/spectrum2) [![Build status](https://ci.appveyor.com/api/projects/status/ly5kr8pg0qjr68wr?svg=true)](https://ci.appveyor.com/project/vitalyster/spectrum2)
-
 ![](http://spectrum.im/animation.gif)
 
 Spectrum 2 is an open source instant messaging transport.
