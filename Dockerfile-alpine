@@ -1,8 +1,5 @@
 FROM alpine:latest
 
-EXPOSE 5222 5269
-VOLUME ["/etc/spectrum2/transports", "/var/lib/spectrum2"]
-
 ADD . /usr/src/spectrum2
 
 RUN apk add --no-cache ca-certificates && \
@@ -47,62 +44,4 @@ RUN apk add --no-cache ca-certificates && \
 	cd spectrum2 && \
 	cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DLOG4CXX_INCLUDE_DIR=/opt/log4cxx/include -DLOG4CXX_LIBRARIES=/opt/log4cxx/lib/liblog4cxx.so -DSWIFTEN_INCLUDE_DIR=/opt/_swiften/include -DSWIFTEN_LIBRARY=/opt/_swiften/lib -DSWIFTEN_CONFIG_EXECUTABLE=/opt/_swiften/bin/swiften-config -DPQXX_INCLUDE_DIR=/opt/libpqxx/include -DPQXX_LIBRARY=/opt/libpqxx/lib/libpqxx.so -DPQ_LIBRARY=/opt/libpqxx/lib/libpqxx.so -DQT_INCLUDE_DIR=/opt/libcommuni/include -DQT_LIBRARY_DIR=/opt/libcommuni/lib -DIRC_MODEL_LIBRARY=/opt/libcommuni/lib/libIrcModel.so && \
 	make && \
-	make install && \
-	cd .. && \
-
-	rm /opt/* -rf && \
-
-	wget https://github.com/dequis/purple-facebook/releases/download/v0.9.4-c9b74a765767/purple-facebook-0.9.4-c9b74a765767.tar.gz && \
-	tar -xf purple-facebook-0.9.4-c9b74a765767.tar.gz && \
-	cd purple-facebook-0.9.4-c9b74a765767 && \
-	./autogen.sh && \
-	./configure && \
-	make && \
-	make install && \
-	cd .. && \
-	rm -rf purple-facebook* && \
-
-	git clone git://github.com/EionRobb/skype4pidgin.git && \
-	cd skype4pidgin/skypeweb && \
-	make && \
-	make install && \
-	cd ../.. && \
-	rm -rf skype4pidgin && \
-
-	pip install --pre e4u protobuf python-dateutil yowsup2 Pillow==2.9.0 && \
-	git clone git://github.com/stv0g/transwhat.git && \
-	git clone git://github.com/tgalal/yowsup.git && \
-	cd transwhat && \
-	git worktree add /opt/transwhat && \
-	cd .. && \
-	cd yowsup && \
-	cp -R yowsup /opt/transwhat/yowsup && \
-	cd .. && \
-	rm -r transwhat && \
-	rm -r yowsup && \
-	rm -rf /opt/transwhat/.git &&\
-	rm -rf /opt/transwhat/.gitignore &&\
-
-	git clone --recursive https://github.com/majn/telegram-purple && \
-	cd telegram-purple && \
-	./configure && \
-	make && \
-	make install && \
-	cd .. && \
-	rm -rf telegram-purple && \
-
-	git clone https://github.com/EionRobb/purple-discord.git && \
-	cd purple-discord && \
-	make && \
-	make install && \
-	cd .. && \
-	rm -rf purple-discord && \
-
-	git clone https://github.com/EionRobb/pidgin-opensteamworks.git && \
-	cd pidgin-opensteamworks/steam-mobile && \
-	make && \
-	make install && \
-	cd ../.. && \
-	rm -rf pidgin-opensteamworks && \
-
-	apk del .build-deps
+	make test
