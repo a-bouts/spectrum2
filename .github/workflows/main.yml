@@ -21,13 +21,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Build tests
-      run: docker build . -f Dockerfile-alpine --target test -t spectrum:tests
-      env:
-        DOCKER_BUILDKIT: 1
     - name: Run tests
-      run: docker run --entrypoint "make test" -tt spectrum:tests
-
+      run: docker build . -f Dockerfile-alpine --target test -t spectrum:tests
+      
   macos:
     runs-on: macOS-latest
     steps:
