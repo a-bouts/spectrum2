@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Run tests
-      run: docker build . -f Dockerfile-alpine --target test -t spectrum:tests
+      run: docker build . -f Dockerfile-alpine
       
   macos:
     runs-on: macOS-latest
