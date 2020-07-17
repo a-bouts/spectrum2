@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:latest
 
 EXPOSE 5222 5269
 VOLUME ["/etc/spectrum2/transports", "/var/lib/spectrum2"]
