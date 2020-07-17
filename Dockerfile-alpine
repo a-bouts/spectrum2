@@ -25,7 +25,7 @@ RUN apk add --no-cache ca-certificates && \
 	rm -rf logging-log4cxx && \
 
 	wget https://github.com/jtv/libpqxx/archive/6.4.7.tar.gz && \
-	tar xfz libpqxx-*.tar.gz && \
+	tar xfz 6.4.7.tar.gz && \
 	cd libpqxx-* && \
 	./autogen.sh && \
 	./configure --enable-shared --disable-documentation --prefix=/opt/libpqxx && \
