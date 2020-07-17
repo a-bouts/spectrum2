@@ -415,11 +415,6 @@ class SpectrumNetworkPlugin : public NetworkPlugin {
 			std::string protocol;
 			getProtocolAndName(legacyName, name, protocol);
 
-			if (password.empty() && protocol != "prpl-telegram" && protocol != "prpl-hangouts") {
-				LOG4CXX_INFO(logger,  name.c_str() << ": Empty password");
-				np->handleDisconnected(user, 1, "Empty password.");
-				return;
-			}
 			if (protocol == "prpl-hangouts") {
 				adminLegacyName = "hangouts";
 				adminAlias = "hangouts";
@@ -1961,8 +1956,8 @@ static void XferCreated(PurpleXfer *xfer) {
 		return;
 	}
 
-// 	PurpleAccount *account = purple_xfer_get_account_wrapped(xfer);
-// 	np->handleFTStart(np->m_accounts[account], xfer->who, xfer, "", xhtml_);
+ 	PurpleAccount *account = purple_xfer_get_account_wrapped(xfer);
+ 	np->handleFTStart(np->m_accounts[account], xfer->who, purple_xfer_get_filename_wrapped(xfer), purple_xfer_get_size_wrapped(xfer));
 }
 
 static void XferDestroyed(PurpleXfer *xfer) {
@@ -2496,6 +2491,11 @@ static void transportDataReceived(gpointer data, gint source, PurpleInputConditi
 				cfg.setNeedRegistration(false);
 			}
 			else {
+				PurplePlugin *plugin = purple_find_prpl_wrapped(CONFIG_STRING(config, "service.protocol").c_str());
+				PurplePluginProtocolInfo *prpl_info = PURPLE_PLUGIN_PROTOCOL_INFO(plugin);
+				bool noPassword = prpl_info->options & OPT_PROTO_NO_PASSWORD;
+				LOG4CXX_INFO(logger, "passwordless backend: " << noPassword);
+				cfg.setNeedPassword(!needPassword);
 				cfg.setNeedRegistration(true);
 			}
 			np->sendConfig(cfg);

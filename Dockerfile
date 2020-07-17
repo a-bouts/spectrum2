@@ -13,6 +13,8 @@ RUN apt-get update -qq
 RUN apt-get build-dep --no-install-recommends -y spectrum2
 RUN apt-get install --no-install-recommends -y libminiupnpc-dev libnatpmp-dev
 
+RUN apt-get install -t buster-backports --no-install-recommends -y cmake
+
 #TODO include in Build-Depends
 RUN apt-get install --no-install-recommends -y libssl-dev
 
@@ -26,9 +28,8 @@ ARG APT_LISTCHANGES_FRONTEND=none
 
 WORKDIR spectrum2
 
-RUN apt-get install --no-install-recommends -y prosody ngircd python-sleekxmpp python-dateutil python-dnspython python-pil libcppunit-dev libpurple-xmpp-carbons1 libglib2.0-dev
+RUN apt-get install --no-install-recommends -y prosody ngircd python3-sleekxmpp python3-dateutil python3-dnspython libcppunit-dev libpurple-xmpp-carbons1 libglib2.0-dev
 
-RUN apt-get install -t buster-backports --no-install-recommends -y cmake
 
 RUN cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=ON -DENABLE_QT4=OFF -DENABLE_FROTZ=OFF -DCMAKE_UNITY_BUILD=ON . && make
 
@@ -96,7 +97,7 @@ git clone --recursive https://github.com/EionRobb/purple-battlenet && \
 		
 FROM debian:10.4-slim as production
 
-EXPOSE 5222
+EXPOSE 8080
 VOLUME ["/etc/spectrum2/transports", "/var/lib/spectrum2"]
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -127,6 +128,8 @@ COPY --from=staging spectrum2/packaging/docker/run.sh /run.sh
 COPY --from=staging spectrum2/packaging/debian/*.deb /tmp/
 
 RUN apt install --no-install-recommends -y /tmp/*.deb
+
+RUN rm -rf /tmp/*.deb
 
 RUN apt-get autoremove && apt-get clean
 
