@@ -15,7 +15,7 @@ RUN apk add --no-cache ca-certificates && \
 	cd .. && \
 	rm -rf libcommuni-* && \
 
-	git clone git://git.apache.org/logging-log4cxx.git && \
+	git clone https://github.com/apache/logging-log4cxx.git && \
 	cd logging-log4cxx && \
 	./autogen.sh && \
 	./configure --prefix=/opt/log4cxx && \
@@ -34,7 +34,7 @@ RUN apk add --no-cache ca-certificates && \
 	cd .. && \
 	rm -rf libpqxx-* && \
 
-	wget https://swift.im/downloads/releases/swift-4.0rc2/swift-4.0rc2.tar.gz && \
+	wget https://swift.im/downloads/releases/swift-4.0.2/swift-4.0.2.tar.gz && \
 	tar xfz swift-*.tar.gz && \
 	cd swift-* && \
 	./scons Swiften SWIFTEN_INSTALLDIR=/opt/_swiften /opt/_swiften && \
