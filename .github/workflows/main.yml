@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  linux:
+  linux-glibc:
     runs-on: ubuntu-latest
 
     steps:
@@ -11,6 +11,18 @@ jobs:
 
     - name: Build tests
       run: docker build . --target test -t spectrum:tests
+      env:
+        DOCKER_BUILDKIT: 1
+    - name: Run tests
+      run: docker run -tt spectrum:tests
+  linux-musl:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build tests
+      run: docker build . -f Dockerfile-alpine --target test -t spectrum:tests
       env:
         DOCKER_BUILDKIT: 1
     - name: Run tests
