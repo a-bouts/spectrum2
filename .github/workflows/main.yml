@@ -26,7 +26,7 @@ jobs:
       env:
         DOCKER_BUILDKIT: 1
     - name: Run tests
-      run: docker run -tt spectrum:tests
+      run: docker run --entrypoint "make test" -tt spectrum:tests
 
   macos:
     runs-on: macOS-latest
