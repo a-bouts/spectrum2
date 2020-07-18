@@ -80,22 +80,6 @@ ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/tmp/out/lib"
 # Spectrum 2
 COPY . spectrum2/
 
-FROM base as test
-
-ARG DEBIAN_FRONTEND=noninteractive
-ARG APT_LISTCHANGES_FRONTEND=none
-
-WORKDIR spectrum2
-
-#RUN apt-get install --no-install-recommends -y prosody ngircd python3-sleekxmpp python3-dateutil python3-dnspython libcppunit-dev libpurple-xmpp-carbons1 libglib2.0-dev
-RUN apt-get install --no-install-recommends -y prosody ngircd python3-sleekxmpp python3-dateutil python3-dnspython libcppunit-dev libglib2.0-dev
-
-RUN cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=ON -DENABLE_QT4=OFF -DENABLE_FROTZ=OFF -DCMAKE_UNITY_BUILD=ON . && make
-
-RUN apt-get install --no-install-recommends -y psmisc
-
-ENTRYPOINT ["make", "extended_test"]
-
 FROM base as staging
 
 ARG DEBIAN_FRONTEND=noninteractive
