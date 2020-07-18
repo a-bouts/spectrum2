@@ -169,20 +169,20 @@ RUN echo 'deb http://deb.debian.org/debian stable-backports main' > /etc/apt/sou
 RUN apt-get update -qq
 RUN apt-get install --no-install-recommends -y curl ca-certificates gnupg1
 
-RUN echo "deb https://packages.spectrum.im/spectrum2/ buster main" | tee -a /etc/apt/sources.list
-RUN curl -fsSL https://packages.spectrum.im/packages.key | apt-key add -
-RUN echo "deb http://download.opensuse.org/repositories/home:/jgeboski/Debian_10/ /" | tee /etc/apt/sources.list.d/home:jgeboski.list
-RUN curl -fsSL https://download.opensuse.org/repositories/home:jgeboski/Debian_10/Release.key | apt-key add
-RUN echo "deb http://download.opensuse.org/repositories/home:/ars3n1y/Debian_10/ /" | tee /etc/apt/sources.list.d/home:ars3n1y.list
-RUN curl -fsSL https://download.opensuse.org/repositories/home:ars3n1y/Debian_10/Release.key | apt-key add
-RUN apt-get update -qq
+#RUN echo "deb https://packages.spectrum.im/spectrum2/ buster main" | tee -a /etc/apt/sources.list
+#RUN curl -fsSL https://packages.spectrum.im/packages.key | apt-key add -
+#RUN echo "deb http://download.opensuse.org/repositories/home:/jgeboski/Debian_10/ /" | tee /etc/apt/sources.list.d/home:jgeboski.list
+#RUN curl -fsSL https://download.opensuse.org/repositories/home:jgeboski/Debian_10/Release.key | apt-key add
+#RUN echo "deb http://download.opensuse.org/repositories/home:/ars3n1y/Debian_10/ /" | tee /etc/apt/sources.list.d/home:ars3n1y.list
+#RUN curl -fsSL https://download.opensuse.org/repositories/home:ars3n1y/Debian_10/Release.key | apt-key add
+#RUN apt-get update -qq
 
-RUN echo "---> Installing purple-facebook" && \
-		apt-get install --no-install-recommends -y purple-facebook
-RUN echo "---> Installing purple-telegram" && \
-		apt-get install --no-install-recommends -y libpurple-telegram-tdlib libtdjson1.6.0
-RUN echo "---> Installing purple-discord" && \
-                apt-get install --no-install-recommends -y -t buster-backports purple-discord
+#RUN echo "---> Installing purple-facebook" && \
+#		apt-get install --no-install-recommends -y purple-facebook
+#RUN echo "---> Installing purple-telegram" && \
+#		apt-get install --no-install-recommends -y libpurple-telegram-tdlib libtdjson1.6.0
+#RUN echo "---> Installing purple-discord" && \
+#                apt-get install --no-install-recommends -y -t buster-backports purple-discord
 
 COPY --from=staging /tmp/out/* /usr/
 
