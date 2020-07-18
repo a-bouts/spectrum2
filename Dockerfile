@@ -84,8 +84,12 @@ RUN echo "---> Installing swiften" && \
 		git clone git://swift.im/swift && \
 		cd swift && \
 		git checkout swift-4.0 && \
-		./scons V=1 swiften_dll=1 Swiften SWIFTEN_INSTALLDIR=/usr/local force-configure=1 && \
-		./scons V=1 swiften_dll=1 Swiften SWIFTEN_INSTALLDIR=/usr/local /tmp/out \
+		./scons V=1 swiften_dll=1 Swiften SWIFTEN_INSTALLDIR=/tmp/out force-configure=1 && \
+		./scons V=1 swiften_dll=1 Swiften SWIFTEN_INSTALLDIR=/tmp/out /tmp/out \
+
+RUN ls -l /tmp/out
+
+ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/tmp/out/lib"
 
 RUN cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=ON -DENABLE_QT4=OFF -DENABLE_FROTZ=OFF -DCMAKE_UNITY_BUILD=ON . && make
 
