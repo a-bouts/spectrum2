@@ -71,7 +71,7 @@ RUN echo "---> Installing swiften" && \
 		cd swift && \
 		git checkout swift-4.0 && \
 		./scons V=1 swiften_dll=1 Swiften SWIFTEN_INSTALLDIR=/tmp/out force-configure=1 && \
-		./scons V=1 swiften_dll=1 Swiften SWIFTEN_INSTALLDIR=/tmp/out /tmp/out \
+		./scons V=1 swiften_dll=1 Swiften SWIFTEN_INSTALLDIR=/tmp/out /tmp/out
 
 RUN ls -l /tmp/out
 
@@ -79,6 +79,7 @@ ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/tmp/out/lib"
 
 # Spectrum 2
 COPY . spectrum2/
+
 
 FROM base as staging
 
