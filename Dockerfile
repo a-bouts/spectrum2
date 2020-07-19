@@ -77,6 +77,10 @@ RUN ls -l /tmp/out
 
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/tmp/out/lib"
 
+RUN echo "/tmp/out/lib" > /etc/ld.so.conf.d/out.conf && ldconfig
+
+RUN ldconfig -v
+
 # Spectrum 2
 COPY . spectrum2/
 
