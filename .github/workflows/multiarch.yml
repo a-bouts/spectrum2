@@ -18,11 +18,13 @@ jobs:
       run: docker buildx ls
 
     - name: Cache Docker layers
-      uses: actions/cache@v2
+      uses: actions/always-upload-cache
       id: cache
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-nav-ui
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
 
     - name: Docker Buildx (build)
       run: |
