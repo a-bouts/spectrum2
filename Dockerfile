@@ -35,7 +35,8 @@ ARG APT_LISTCHANGES_FRONTEND=none
 
 RUN apt-get install --no-install-recommends -y debhelper default-libmysqlclient-dev libavahi-client-dev libavahi-common-dev libboost-all-dev libcurl4-openssl-dev libdbus-glib-1-dev libev-libevent-dev libidn11-dev libjsoncpp-dev liblog4cxx-dev libpopt-dev libpqxx-dev libprotobuf-dev libpurple-dev libsqlite3-dev libxml2-dev protobuf-compiler qtbase5-dev
 
-RUN apt-get install -t buster-backports --no-install-recommends -y cmake
+#RUN apt-get install -t buster-backports --no-install-recommends -y cmake
+RUN apt-get install --no-install-recommends -y cmake
 
 ENV CMAKE_INCLUDE_PATH="${CMAKE_INCLUDE_PATH}:/tmp/out/include"
 ENV CMAKE_LIBRARY_PATH="${CMAKE_LIBRARY_PATH}:/tmp/out/lib"
