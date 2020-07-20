@@ -18,7 +18,7 @@ jobs:
       run: docker buildx ls
 
     - name: Cache Docker layers
-      uses: actions/always-upload-cache
+      uses: pat-s/always-upload-cache@v2.0.0
       id: cache
       with:
         path: /tmp/.buildx-cache
